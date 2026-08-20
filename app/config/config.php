@@ -353,5 +353,4 @@ $config['csrf_regenerate']         = FALSE;
 
 // add this one line near the bottom of app/config/config.php
 require_once __DIR__ . '/middleware.php';
-?>
 
