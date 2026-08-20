@@ -81,6 +81,7 @@ $config['environment'] = getenv('APP_ENV') ?: 'development';
 */
 $config['base_url'] 				= '';
 
+
 /*
 |--------------------------------------------------------------------------
 | Static File Proxies
@@ -99,7 +100,8 @@ $config['proxy_enabled']           = FALSE;
 | variable to blank.
 |
 */
-$config['index_page']               = 'index.php';
+//$config['index_page']               = 'index.php';
+$config['index_page']               = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -348,4 +350,9 @@ $config['csrf_token_name']         = 'csrf_test_name';
 $config['csrf_cookie_name']        = 'csrf_cookie_name';
 $config['csrf_expire']             = 7200;
 $config['csrf_regenerate']         = FALSE;
+
+
+// add this one line near the bottom of app/config/config.php
+require_once __DIR__ . '/middleware.php';
 ?>
+
