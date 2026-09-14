@@ -2,12 +2,12 @@
 defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
 /**
- * Model: UsersModel
+ * Model: ProductModel
  * 
  * Automatically generated via CLI.
  */
-class UsersModel extends Model {
-    protected $table = 'users';
+class ProductModel extends Model {
+    protected $table = 'products';
     protected $primary_key = 'id';
     protected $fillable = [];
     protected $guarded = ['id'];
@@ -15,5 +15,10 @@ class UsersModel extends Model {
     public function __construct()
     {
         parent::__construct();
+    }
+
+    public function update_data($id, $data)
+    {
+        return $this->update($id, $data);
     }
 }

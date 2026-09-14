@@ -1,0 +1,131 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 0;
+    color: #222;
+}
+
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.login-box {
+    max-width: 360px;
+    margin: 80px auto;
+}
+
+h1,
+h2 {
+    margin-top: 0;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.topbar span {
+    color: #555;
+    font-size: 14px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th,
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: left;
+    font-size: 14px;
+}
+
+th {
+    background: #fafafa;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+input[type=text],
+input[type=password],
+input[type=number],
+textarea {
+    width: 100%;
+    padding: 9px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #2d6cdf;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #1f56b8;
+}
+
+.btn-danger {
+    background: #d9534f;
+}
+
+.btn-danger:hover {
+    background: #c9302c;
+}
+
+.btn-link {
+    color: #2d6cdf;
+    text-decoration: none;
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+.error {
+    background: #fdecea;
+    color: #a94442;
+    padding: 10px 14px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+.actions {
+    white-space: nowrap;
+}

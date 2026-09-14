@@ -49,4 +49,10 @@ require_once APP_DIR . 'config/middleware.php';
 $router->get('/student', 'StudentController::index');
 $router->get('/student/profile', 'StudentController::profile')->middleware('student');
 */
-$router->get('/users', 'UsersController::users');
+
+$router->any('/', 'ProductController::index');
+$router->any('/products', 'ProductController::display')->middleware('auth');
+$router->any('/products/create', 'ProductController::create')->middleware('auth');
+$router->any('/products/edit/{id}', 'ProductController::edit')->middleware('auth');
+$router->any('/products/delete/{id}', 'ProductController::delete')->middleware('auth');
+$router->any('/logout', 'ProductController::logout');
