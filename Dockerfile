@@ -10,6 +10,9 @@ RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/Allo
 
 COPY . /var/www/html/
 
+# Ensure ssl directory has correct permissions
+RUN if [ -d /var/www/html/ssl ]; then chmod 644 /var/www/html/ssl/*.pem 2>/dev/null || true; fi
+
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
 
