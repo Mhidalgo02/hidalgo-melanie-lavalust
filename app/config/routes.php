@@ -1,8 +1,37 @@
 <?php
 
-defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
+defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
+$router->get('/','Welcome::index' );
+// Login
+$router->get('/login', 'AuthController::login');
+$router->post('/login', 'AuthController::login');
 
-// ===== REST API (React frontend) =====
+// Logout
+$router->get('/logout', 'AuthController::logout');
+
+// Product CRUD
+$router->get('/products', 'ProductController::index')
+       ->middleware('product');
+
+$router->get('/products/create', 'ProductController::create')
+       ->middleware('product');
+
+$router->post('/products/store', 'ProductController::store')
+       ->middleware('product');
+
+$router->get('/products/edit/{id}', 'ProductController::edit')
+       ->where_number('id')
+       ->middleware('product');
+
+$router->post('/products/update/{id}', 'ProductController::update')
+       ->where_number('id')
+       ->middleware('product');
+
+$router->post('/products/delete/{id}', 'ProductController::delete')
+       ->where_number('id');
+
+
+       // ===== REST API (React frontend) =====
 $router->post('/api/login',   'ApiAuthController::login');
 $router->post('/api/refresh', 'ApiAuthController::refresh');
 $router->post('/api/logout',  'ApiAuthController::logout');

@@ -1,5 +1,5 @@
 <?php
-defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
+defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
 class ApiAuthController extends Controller
 {
