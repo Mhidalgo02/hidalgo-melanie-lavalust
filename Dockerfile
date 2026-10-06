@@ -6,8 +6,6 @@ RUN docker-php-ext-install pdo pdo_mysql
 
 RUN a2enmod rewrite
 
-RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
-
 COPY . /var/www/html/
 
 # Ensure ssl directory has correct permissions
@@ -18,8 +16,10 @@ RUN chown -R www-data:www-data /var/www/html \
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
-RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot ${APACHE_DOCUMENT_ROOT}|g' /etc/apache2/sites-available/000-default.conf \
-    && sed -i 's|<Directory /var/www/html>|<Directory ${APACHE_DOCUMENT_ROOT}>|g' /etc/apache2/apache2.conf \
-    && sed -i '/<Directory ${APACHE_DOCUMENT_ROOT}>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+RUN echo "DocumentRoot /var/www/html/public" > /etc/apache2/sites-available/000-default.conf \
+    && echo "<Directory /var/www/html/public>" >> /etc/apache2/sites-available/000-default.conf \
+    && echo "    AllowOverride All" >> /etc/apache2/sites-available/000-default.conf \
+    && echo "    Require all granted" >> /etc/apache2/sites-available/000-default.conf \
+    && echo "</Directory>" >> /etc/apache2/sites-available/000-default.conf
 
 EXPOSE 80
