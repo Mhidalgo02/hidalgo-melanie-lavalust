@@ -4,6 +4,12 @@
 # Environment
 .env
 !.env.example
+#.env
+#.git
+#.gitignore
+#runtime/session/*
+#*.zip
+#node_modules
 
 # Dependencies
 vendor/

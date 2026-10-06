@@ -14,19 +14,17 @@ class ProductMiddleware
      * @return mixed
      */
     public function handle(Closure $next)
-    {
-        $lava = lava_instance();
+    { // 1. Get the LavaLust framework instance correctly
+        $lava = $get_instance();
+
+        // 2. Explicitly load session library
         $lava->call->library('session');
 
-        $username = $lava->session->userdata('username');
-        $password = $lava->session->userdata('password');
-
-        // Kick back to login (/) if not authorized
-        if ($username !== 'hello' || $password !== 'world') {
+        // 3. Check if user is logged in
+        if (!$lava->session->userdata('logged_in')) {
             redirect('/');
-            exit();
+            exit(); // Stop execution immediately
         }
-         // TODO: Add your middleware logic here (authentication, authorization, etc.)
 
         return $next();
     }

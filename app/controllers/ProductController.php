@@ -12,6 +12,15 @@ class ProductController extends Controller {
         parent::__construct();
         $this->call->Model('ProductModel');
         $this->call->database();
+        $this->call->library('session');
+    }
+
+    private function check_auth()
+    {
+        if (!$this->session->userdata('logged_in')) {
+            redirect('/');
+            exit();
+        }
     }
 
     public function index()
@@ -22,7 +31,6 @@ class ProductController extends Controller {
             $passwordInput = $this->request->post('password');
 
             if ($usernameInput === 'hello' && $passwordInput === 'world') {
-                $this->call->library('session');
                 $this->session->set_userdata([
                     'username'  => $usernameInput,
                     'password'  => $passwordInput,
@@ -43,15 +51,25 @@ class ProductController extends Controller {
     }
 
 
+    public function logout()
+    {
+        $this->session->unset_userdata(['username', 'password', 'logged_in']);
+        $this->session->sess_destroy();
+
+        redirect('/');
+        return;
+    }
+
     public function display()
     {
+        $this->check_auth();
         $data['records'] = $this->ProductModel->all();
         $this->call->view('product/products', $data);
     }
 
     public function create()
     {
-       
+        $this->check_auth();
         if($this->request->is_post()) {
             $this->ProductModel->insert([
                 'product_name' => $this->request->post('product_name'),
@@ -95,6 +113,7 @@ class ProductController extends Controller {
 */
     public function edit($id)
     {
+        $this->check_auth();
         $data['record'] = $this->ProductModel->find($id);
 
         if (!$data['record']) {
@@ -115,17 +134,9 @@ class ProductController extends Controller {
 
     public function delete($id)
     {
+        $this->check_auth();
         $this->ProductModel->delete($id);
         redirect('/products');
     }
 
-    public function logout()
-    {
-        $this->call->library('session');
-        $this->session->unset_userdata(['username', 'password', 'logged_in']);
-        $this->session->sess_destroy();
-
-        redirect('/');
-        return;
-    }
 }

@@ -261,6 +261,25 @@ class Database {
             default:
                 throw new PDOException("Unsupported database driver: $driver");
         }
+        /*
+        $options = array(
+            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES   => false,
+        );
+        the one below is change for ssl connection to aiven mysql database
+*/
+        // SSL (needed by Aiven MySQL). Set DB_SSL_CA=ssl/ca.pem in .env
+        $ssl_ca = getenv('DB_SSL_CA');
+        if ($driver === 'mysql' && $ssl_ca) {
+            $ssl_path = (strpos($ssl_ca, '/') === 0) ? $ssl_ca : ROOT_DIR . $ssl_ca;
+            if (file_exists($ssl_path)) {
+                $ca_attr     = defined('Pdo\\Mysql::ATTR_SSL_CA') ? constant('Pdo\\Mysql::ATTR_SSL_CA') : PDO::MYSQL_ATTR_SSL_CA;
+                $verify_attr = defined('Pdo\\Mysql::ATTR_SSL_VERIFY_SERVER_CERT') ? constant('Pdo\\Mysql::ATTR_SSL_VERIFY_SERVER_CERT') : PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT;
+                $options[$ca_attr]     = $ssl_path;
+                $options[$verify_attr] = true;
+            }
+        }
 
         $options = array(
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
@@ -1730,4 +1749,5 @@ class Database {
     {
         $this->db = null;
     }
+    
 }
