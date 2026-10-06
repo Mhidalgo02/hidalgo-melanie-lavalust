@@ -270,6 +270,12 @@ class Database {
         the one below is change for ssl connection to aiven mysql database
 */
         // SSL (needed by Aiven MySQL). Set DB_SSL_CA=ssl/ca.pem in .env
+        $options = array(
+            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES   => false,
+        );
+                // SSL (needed by Aiven MySQL). Set DB_SSL_CA=ssl/ca.pem in .env
         $ssl_ca = getenv('DB_SSL_CA');
         if ($driver === 'mysql' && $ssl_ca) {
             $ssl_path = (strpos($ssl_ca, '/') === 0) ? $ssl_ca : ROOT_DIR . $ssl_ca;
@@ -280,12 +286,6 @@ class Database {
                 $options[$verify_attr] = true;
             }
         }
-
-        $options = array(
-            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES   => false,
-        );
 
         try {
             $this->db = new PDO($dsn, $username, $password, $options);
