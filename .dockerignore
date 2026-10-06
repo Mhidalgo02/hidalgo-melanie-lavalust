@@ -1,0 +1,6 @@
+.env
+.git
+.gitignore
+runtime/session/*
+*.zip
+node_modules
